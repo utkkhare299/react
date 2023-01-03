@@ -1,17 +1,21 @@
 import { useState } from "react";
 
-const ExpenseForm = () => {
+const ExpenseForm = ({ onSaveExpenseData }) => {
   const [enteredTitle, setTitle] = useState("");
   const [enteredAmount, setAmount] = useState("");
   const [enteredDate, setDate] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
     const obj = {
-      enteredTitle,
-      enteredAmount,
-      enteredDate
+      title: enteredTitle,
+      amount: enteredAmount,
+      date: new Date(enteredDate)
     }
     console.log(obj)
+    onSaveExpenseData(obj)
+    setTitle('')
+    setAmount('')
+    setDate('')
   };
 
   const handleChange = (e) => {
