@@ -6,6 +6,12 @@ const ExpenseForm = () => {
   const [enteredDate, setDate] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
+    const obj = {
+      enteredTitle,
+      enteredAmount,
+      enteredDate
+    }
+    console.log(obj)
   };
 
   const handleChange = (e) => {
