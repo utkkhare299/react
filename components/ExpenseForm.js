@@ -9,13 +9,13 @@ const ExpenseForm = ({ onSaveExpenseData }) => {
     const obj = {
       title: enteredTitle,
       amount: enteredAmount,
-      date: new Date(enteredDate)
-    }
-    console.log(obj)
-    onSaveExpenseData(obj)
-    setTitle('')
-    setAmount('')
-    setDate('')
+      date: new Date(enteredDate),
+    };
+    console.log(obj);
+    onSaveExpenseData(obj);
+    setTitle("");
+    setAmount("");
+    setDate("");
   };
 
   const handleChange = (e) => {
@@ -26,35 +26,39 @@ const ExpenseForm = ({ onSaveExpenseData }) => {
     if (e.target.name === "amount") setAmount(e.target.value);
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="entry">entry </label>
-        <input
-          value={enteredTitle}
-          onChange={handleChange}
-          name="title"
-          type="text"
-        />
+    <form onSubmit={handleSubmit} className="new-expense">
+      <div className="new-expense__controls">
+        <div className="new-expense__control">
+          <label htmlFor="title">Title </label>
+          <input
+            value={enteredTitle}
+            onChange={handleChange}
+            name="title"
+            type="text"
+          />
+        </div>
+        <div className="new-expense__control">
+          <label htmlFor="amount">Amount </label>
+          <input
+            value={enteredAmount}
+            onChange={handleChange}
+            name="amount"
+            type="number"
+          />
+        </div>
+        <div className="new-expense__control">
+          <label htmlFor="date"> Date </label>
+          <input
+            value={enteredDate}
+            onChange={handleChange}
+            name="date"
+            type="date"
+          />
+        </div>
       </div>
-      <div>
-        <label htmlFor="amount">Amount </label>
-        <input
-          value={enteredAmount}
-          onChange={handleChange}
-          name="amount"
-          type="number"
-        />
+      <div className="new-expense__actions">
+        <button type="submit"> Add Expense</button>
       </div>
-      <div>
-        <label htmlFor="date"> Date </label>
-        <input
-          value={enteredDate}
-          onChange={handleChange}
-          name="date"
-          type="date"
-        />
-      </div>
-      <button type="submit"> Add Expense</button>
     </form>
   );
 };
