@@ -4,6 +4,7 @@ import ExpenseItem from "./components/ExpenseItem";
 import ExpenseForm from "./components/ExpenseForm";
 import ExpensesFilter from "./components/ExpensesFilter";
 import { useState } from "react";
+
 const expenses = [
   {
     id: "e1",
@@ -34,9 +35,8 @@ const expenses = [
     locationOfExpenditure: "Furniture Store",
   },
 ];
-
 export default function App() {
-  const expenses = [
+  const newExpenses = [
     {
       id: "e1",
       title: "Toilet Paper",
@@ -62,7 +62,7 @@ export default function App() {
 
   const saveExpenseDataHandler = (data) => {
     const expenseData = { ...data, id: Math.random().toString() };
-    setNewExpenses([...expenses, expenseData]);
+
     console.log(newExpenses);
   };
 
@@ -74,6 +74,18 @@ export default function App() {
     return expense.date.getFullYear().toString() === filteredYear;
   });
 
+  let expensesContent = <p>No Expenses found....</p>;
+  if (filteredExpenses.length > 0) {
+    expensesContent = filteredExpenses.map((expense) => (
+      <ExpenseItem
+        key={expense.id}
+        title={expense.title}
+        amount={expense.amount}
+        date={expense.date}
+      />
+    ));
+  }
+
   return (
     <>
       <ExpenseForm onSaveExpenseData={saveExpenseDataHandler} />
@@ -83,14 +95,10 @@ export default function App() {
           selected={filteredYear}
           onChangeFilter={filterChangeHandler}
         />
-        {filteredExpenses.map((expense) => (
-          <ExpenseItem
-            key={expense.id}
-            title={expense.title}
-            amount={expense.amount}
-            date={expense.date}
-          />
-        ))}
+        {expensesContent}
+        {filteredExpenses.length === 1 && (
+          <p>Only single Expense here. Please add more..</p>
+        )}
       </main>
     </>
   );
