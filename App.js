@@ -36,34 +36,15 @@ const expenses = [
   },
 ];
 export default function App() {
-  const newExpenses = [
-    {
-      id: "e1",
-      title: "Toilet Paper",
-      amount: 94.12,
-      date: new Date(2020, 7, 14),
-    },
-    { id: "e2", title: "New TV", amount: 799.49, date: new Date(2021, 2, 12) },
-    {
-      id: "e3",
-      title: "Car Insurance",
-      amount: 294.67,
-      date: new Date(2021, 2, 28),
-    },
-    {
-      id: "e4",
-      title: "New Desk (Wooden)",
-      amount: 450,
-      date: new Date(2021, 5, 12),
-    },
-  ];
-
+  const [newExpenses, setNewExpenses] = useState(expenses);
   const [filteredYear, setFilteredYear] = useState("2020");
+  const [isEditing, setIsEditing] = useState(false);
 
   const saveExpenseDataHandler = (data) => {
     const expenseData = { ...data, id: Math.random().toString() };
-
+    setNewExpenses([...expenses, expenseData]);
     console.log(newExpenses);
+    setIsEditing(false);
   };
 
   const filterChangeHandler = (selectedYear) => {
@@ -86,10 +67,27 @@ export default function App() {
     ));
   }
 
+  const startEditingHandler = () => {
+    setIsEditing(true);
+  };
+  const stopEditingHandler = () => {
+    setIsEditing(false);
+  };
+
   return (
     <>
-      <ExpenseForm onSaveExpenseData={saveExpenseDataHandler} />
-
+      {!isEditing && (
+        <button className="btn" onClick={startEditingHandler}>
+          {" "}
+          Add Expense{" "}
+        </button>
+      )}{" "}
+      {isEditing && (
+        <ExpenseForm
+          onSaveExpenseData={saveExpenseDataHandler}
+          onCancel={stopEditingHandler}
+        />
+      )}
       <main className="expenses">
         <ExpensesFilter
           selected={filteredYear}
