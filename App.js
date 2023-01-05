@@ -3,6 +3,8 @@ import "./App.css";
 import ExpenseItem from "./components/ExpenseItem";
 import ExpenseForm from "./components/ExpenseForm";
 import ExpensesFilter from "./components/ExpensesFilter";
+import ExpensesChart from "./components/Expenses/ExpenseChart";
+
 import { useState } from "react";
 
 const expenses = [
@@ -89,6 +91,8 @@ export default function App() {
         />
       )}
       <main className="expenses">
+        <ExpensesChart expenses={filteredExpenses} />
+
         <ExpensesFilter
           selected={filteredYear}
           onChangeFilter={filterChangeHandler}
